@@ -54,6 +54,10 @@ function generateMulti() {
 
     var outputString = document.createTextNode(outputData);
 
+    if (output.innerHTML !== '') {
+        output.innerHTML = '';
+    }
+
     output.appendChild(outputString);
 };
 
