@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>4indoors Ebay Template Generator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-container">
+                <form id="multi-form" class="forms">
+                    <h3>Multiple Image Template</h3>
+                    <fieldset>
+                        <label for="image-1">Images</label>
+                        <input class="image1" id="image-1" placeholder="Image URL 1..." type="text" autofocus>
+                    </fieldset>
+                    <fieldset>
+                        <input class="image2" placeholder="Image URL 2..." type="text">
+                    </fieldset>
+                    <fieldset>
+                        <input class="mb10 image3" placeholder="Image URL 3..." type="text">
+                    </fieldset>
+                    <fieldset>
+                        <label for="title-1">PRODUCT INFO</label>
+                        <input class="title" id="title-1" placeholder="Product Title..." type="text">
+                    </fieldset>
+                    <fieldset>
+                        <input class="code" placeholder="Product Code..." type="text">
+                    </fieldset>
+                    <fieldset id="para-container">
+                        <textarea class="paragraph" placeholder="Product Paragraph..."></textarea>
+                        <p><a class="add_para_btn add-btn" href="#">Add Paragraph</a></p>
+                    </fieldset>
+                    <fieldset id="bullet-container">
+                        <label class="bullet-label">BULLET POINTS</label>
+                        <a class="add_bullet_btn add-btn" href="#">Add Bullet Point</a>
+                    </fieldset>
+                    <fieldset id="spec-container">
+                        <label for="spec-1">PRODUCT SPEC</label>
+                        <input id="spec-1" class="spec" placeholder="Product Spec..." type="text">
+                        <p><a class="add_spec_btn add-btn" href="#">Add Spec</a></p>
+                    </fieldset>
+                    <button type="submit" id="form-submit">Create Template</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="output-container" onclick="select_all(this)">
+                <p class="output"></p>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="script.js"></script>
+        <script>
+        $(document).ready(function(){
+	
+            $('ul.tabs li').click(function(){
+                var tab_id = $(this).attr('data-tab');
+
+                $('ul.tabs li').removeClass('current');
+                $('.tab-content').removeClass('current');
+
+                $(this).addClass('current');
+                $("#"+tab_id).addClass('current');
+            })
+
+        });
+
+
+        // Add Paragraph
+        //set a counter
+        var i = $('#para-container :input').length + 1;
+
+        //add input
+        $('a.add_para_btn').click(function () {
+            $('<p><textarea class="added paragraph" placeholder="Product Paragraph..."></textarea>' +
+                '<a class="dynamic-link add-btn" href="#">Remove</a></p>').fadeIn("slow").appendTo('#para-container');
+            i++;
+            return false;
+        });
+
+        //fadeout selected item and remove
+        $("#para-container").on('click', '.dynamic-link', function () {
+            $(this).parent().fadeOut(300, function () {
+                $(this).empty();
+                return false;
+            });
+        });
+
+
+        // Add Bullet Point
+        //set a counter
+        var y = $('#bullet-container :input').length + 1;
+
+        //add input
+        $('a.add_bullet_btn').click(function () {
+            $('<p><input class="added bullet" placeholder="Bullet Point..." type="text">' +
+                '<a class="dynamic-link add-btn" href="#">Remove</a></p>').fadeIn("slow").appendTo('#bullet-container');
+            y++;
+            return false;
+        });
+
+        //fadeout selected item and remove
+        $("#bullet-container").on('click', '.dynamic-link', function () {
+            $(this).parent().fadeOut(300, function () {
+                $(this).empty();
+                return false;
+            });
+        });
+
+
+        // Add Spec
+        //set a counter
+        var x = $('#spec-container :input').length + 1;
+
+        //add input
+        $('a.add_spec_btn').click(function () {
+            $('<p><input class="added spec" placeholder="Product Spec..." type="text">' +
+                '<a class="dynamic-link add-btn" href="#">Remove</a></p>').fadeIn("slow").appendTo('#spec-container');
+            x++;
+            return false;
+        });
+
+        //fadeout selected item and remove
+        $("#spec-container").on('click', '.dynamic-link', function () {
+            $(this).parent().fadeOut(300, function () {
+                $(this).empty();
+                return false;
+            });
+        });
+
+        // Prevent reload on submit
+        $('form').submit(function(e){
+            e.preventDefault();
+        });
+
+
+        // Select all output
+        function select_all(el) {
+            if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+                var range = document.createRange();
+                range.selectNodeContents(el);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } else if (typeof document.selection != "undefined" && typeof document.body.createTextRange != "undefined") {
+                var textRange = document.body.createTextRange();
+                textRange.moveToElementText(el);
+                textRange.select();
+            }
+        }
+
+
+    </script>
+    </body>
+</html>
